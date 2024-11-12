@@ -1,0 +1,87 @@
+Relatório de Ocupação das Salas:
+
+Dia 1, Hora 8:
+
+Dia 1, Hora 9:
+
+Dia 1, Hora 10:
+
+Dia 1, Hora 11:
+
+Dia 1, Hora 12:
+
+Dia 1, Hora 13:
+
+Dia 1, Hora 14:
+
+Dia 1, Hora 15:
+
+Dia 2, Hora 8:
+
+Dia 2, Hora 9:
+
+Dia 2, Hora 10:
+
+Dia 2, Hora 11:
+
+Dia 2, Hora 12:
+
+Dia 2, Hora 13:
+
+Dia 2, Hora 14:
+
+Dia 2, Hora 15:
+
+Dia 3, Hora 8:
+
+Dia 3, Hora 9:
+
+Dia 3, Hora 10:
+
+Dia 3, Hora 11:
+
+Dia 3, Hora 12:
+
+Dia 3, Hora 13:
+
+Dia 3, Hora 14:
+
+Dia 3, Hora 15:
+
+Dia 4, Hora 8:
+
+Dia 4, Hora 9:
+
+Dia 4, Hora 10:
+
+Dia 4, Hora 11:
+
+Dia 4, Hora 12:
+
+Dia 4, Hora 13:
+
+Dia 4, Hora 14:
+
+Dia 4, Hora 15:
+
+Dia 5, Hora 8:
+
+Dia 5, Hora 9:
+
+Dia 5, Hora 10:
+
+Dia 5, Hora 11:
+
+Dia 5, Hora 12:
+
+Dia 5, Hora 13:
+
+Dia 5, Hora 14:
+
+Dia 5, Hora 15:
+
+
+Horas Trabalhadas por Médico:
+
+Médico Dr_Ana: 5 horas
+Médico Dr_Carlos: 8 horas

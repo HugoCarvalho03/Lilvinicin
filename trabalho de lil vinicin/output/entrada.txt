@@ -1,0 +1,8 @@
+3
+1 Joao 25 70.5 1.75 dor_de_cabeca 2 0 1
+2 Maria 34 65.0 1.68 febre 1 1 2
+3 Pedro 40 80.0 1.80 dor_abdominal 3 0 3
+2
+2
+1 Dr_Ana 1 5
+2 Dr_Carlos 2 8
