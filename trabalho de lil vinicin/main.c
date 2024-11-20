@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 
 #define MAX_NOME 100
-#define MAX_SINTOMAS 200
 #define MAX_SALAS 10
 #define MAX_MEDICOS 20
 #define MAX_PACIENTES 50
@@ -15,7 +13,7 @@ typedef struct {
     int idade;
     float peso;
     float altura;
-    char sintomas[MAX_SINTOMAS];
+    char sintomas[MAX_NOME];
     int prioridade;
     int faltas;
     int especialidade;
@@ -30,68 +28,71 @@ typedef struct {
 
 typedef struct {
     int id;
-    int ocupada;
-    int horario[5][8];
+    int ocupado; // 0 = livre, 1 = ocupado
+    int horario[5][8]; // 5 dias, 8 horas por dia
 } Sala;
 
 // Função para carregar os dados do arquivo de entrada
-void carregarDados(const char *nomeArquivo, Paciente *pacientes, Medico *medicos, Sala *salas, int *numPacientes, int *numSalas, int *numMedicos) {
+void carregarDados(const char *nomeArquivo, Paciente *pacientes, Medico *medicos, Sala *salas, int *numPacientes, int *numMedicos, int *numSalas) {
     FILE *arquivo = fopen(nomeArquivo, "r");
     if (!arquivo) {
-        printf("Erro ao abrir o arquivo.\n");
-        return;
+        printf("Erro ao abrir o arquivo '%s'.\n", nomeArquivo);
+        exit(1);
     }
 
+    // Ler pacientes
     fscanf(arquivo, "%d", numPacientes);
     for (int i = 0; i < *numPacientes; i++) {
-        Paciente p;
-        fscanf(arquivo, "%d %s %d %f %f %s %d %d %d", &p.id, p.nome, &p.idade, &p.peso, &p.altura, p.sintomas, &p.prioridade, &p.faltas, &p.especialidade);
-        pacientes[i] = p;
+        fscanf(arquivo, "%d %s %d %f %f %s %d %d %d", &pacientes[i].id, pacientes[i].nome, &pacientes[i].idade,
+               &pacientes[i].peso, &pacientes[i].altura, pacientes[i].sintomas, &pacientes[i].prioridade,
+               &pacientes[i].faltas, &pacientes[i].especialidade);
     }
 
+    // Ler salas
     fscanf(arquivo, "%d", numSalas);
     for (int i = 0; i < *numSalas; i++) {
-        Sala s = {i, 0, {{0}}};
-        salas[i] = s;
+        salas[i].id = i;
+        salas[i].ocupado = 0;
+        memset(salas[i].horario, 0, sizeof(salas[i].horario));
     }
 
+    // Ler médicos
     fscanf(arquivo, "%d", numMedicos);
     for (int i = 0; i < *numMedicos; i++) {
-        Medico m;
-        fscanf(arquivo, "%d %s %d %d", &m.id, m.nome, &m.especialidade, &m.horasTrabalhadas);
-        medicos[i] = m;
+        fscanf(arquivo, "%d %s %d %d", &medicos[i].id, medicos[i].nome, &medicos[i].especialidade, &medicos[i].horasTrabalhadas);
     }
 
     fclose(arquivo);
 }
 
-void processarAgendamentos(Paciente *pacientes, Medico *medicos, Sala *salas, int numPacientes, int numMedicos, int numSalas) {
-    for (int dia = 0; dia < 5; dia++) { // Segunda a sexta
-        for (int hora = 0; hora < 8; hora++) { // Horário comercial, das 8h às 16h
-            for (int i = 0; i < numPacientes; i++) {
-                if (pacientes[i].prioridade > 0 && pacientes[i].faltas < 2) {
-                    for (int j = 0; j < numSalas; j++) {
-                        if (salas[j].ocupada == 0) { // Sala disponível
-                            int medIndex = pacientes[i].especialidade % numMedicos; // Escolhe médico baseado na especialidade
-                            if (medicos[medIndex].especialidade == pacientes[i].especialidade) {
-                                // Agendamento
-                                salas[j].ocupada = 1;
-                                salas[j].horario[dia][hora] = pacientes[i].id;
-                                medicos[medIndex].horasTrabalhadas++;
-                                printf("Paciente %s agendado com médico %s na sala %d, dia %d, hora %d\n", pacientes[i].nome, medicos[medIndex].nome, salas[j].id, dia + 1, hora + 8);
+// Função para agendar consultas
+void processarAgendamentos(Paciente *pacientes, Medico *medicos, Sala *salas, int numPacientes, int numMedicos, int numSalas, int *semanas) {
+    int pacientesAtendidos = 0;
+    *semanas = 0;
 
-                                // Simulação de falta (opcional)
-                                if (rand() % 100 < 5) { // 5% chance de faltar
-                                    pacientes[i].faltas++;
-                                    if (pacientes[i].faltas == 2) {
-                                        printf("Paciente %s removido após faltar duas vezes\n", pacientes[i].nome);
-                                    } else {
-                                        pacientes[i].prioridade--;
+    while (pacientesAtendidos < numPacientes) {
+        (*semanas)++;
+        for (int dia = 0; dia < 5; dia++) { // Segunda a sexta
+            for (int hora = 0; hora < 8; hora++) { // 8 horas de trabalho
+                for (int s = 0; s < numSalas; s++) {
+                    if (!salas[s].ocupado) { // Sala livre
+                        for (int p = 0; p < numPacientes; p++) {
+                            if (pacientes[p].prioridade > 0 && pacientes[p].faltas < 2) {
+                                for (int m = 0; m < numMedicos; m++) {
+                                    if (medicos[m].especialidade == pacientes[p].especialidade) {
+                                        // Agendar consulta
+                                        salas[s].ocupado = 1;
+                                        salas[s].horario[dia][hora] = pacientes[p].id;
+                                        medicos[m].horasTrabalhadas++;
+                                        pacientesAtendidos++;
+                                        pacientes[p].prioridade = 0; // Paciente atendido
+                                        break;
                                     }
                                 }
                                 break;
                             }
                         }
+                        salas[s].ocupado = 0; // Sala liberada
                     }
                 }
             }
@@ -99,59 +100,71 @@ void processarAgendamentos(Paciente *pacientes, Medico *medicos, Sala *salas, in
     }
 }
 
-void gerarRelatorio(Paciente *pacientes, Medico *medicos, Sala *salas, int numPacientes, int numMedicos, int numSalas) {
+// Função para gerar o relatório
+void gerarRelatorio(const Paciente *pacientes, const Medico *medicos, const Sala *salas, int numPacientes, int numMedicos, int numSalas, int semanas) {
     FILE *arquivo = fopen("relatorio.txt", "w");
     if (!arquivo) {
-        printf("Erro ao abrir o arquivo de relatório.\n");
-        return;
+        printf("Erro ao criar o arquivo 'relatorio.txt'.\n");
+        exit(1);
     }
 
     fprintf(arquivo, "Relatório de Ocupação das Salas:\n\n");
     for (int dia = 0; dia < 5; dia++) {
         for (int hora = 0; hora < 8; hora++) {
             fprintf(arquivo, "Dia %d, Hora %d:\n", dia + 1, hora + 8);
-            for (int i = 0; i < numSalas; i++) {
-                int pacienteId = salas[i].horario[dia][hora];
-                if (pacienteId != 0) { // Verifica se há um paciente agendado
-                    // Procura o nome do paciente pelo ID
+            for (int s = 0; s < numSalas; s++) {
+                int pacienteId = salas[s].horario[dia][hora];
+                if (pacienteId != 0) {
                     char *nomePaciente = "Desconhecido";
-                    for (int j = 0; j < numPacientes; j++) {
-                        if (pacientes[j].id == pacienteId) {
-                            nomePaciente = pacientes[j].nome;
+                    for (int p = 0; p < numPacientes; p++) {
+                        if (pacientes[p].id == pacienteId) {
+                            nomePaciente = (char *)pacientes[p].nome;
                             break;
                         }
                     }
-                    fprintf(arquivo, "Sala %d - Paciente %s (ID %d)\n", salas[i].id, nomePaciente, pacienteId);
+                    fprintf(arquivo, "Sala %d - Paciente %s (ID %d)\n", salas[s].id, nomePaciente, pacienteId);
                 }
             }
             fprintf(arquivo, "\n");
         }
     }
 
-    fprintf(arquivo, "\nHoras Trabalhadas por Médico:\n\n");
+    fprintf(arquivo, "\nNúmero de semanas necessárias: %d\n\n", semanas);
+
+    fprintf(arquivo, "Horas Trabalhadas por Médico:\n");
+    Medico medicosOrdenados[MAX_MEDICOS];
+    memcpy(medicosOrdenados, medicos, sizeof(Medico) * numMedicos);
+
+    // Ordenar médicos por horas trabalhadas (decrescente)
+    for (int i = 0; i < numMedicos - 1; i++) {
+        for (int j = i + 1; j < numMedicos; j++) {
+            if (medicosOrdenados[i].horasTrabalhadas < medicosOrdenados[j].horasTrabalhadas) {
+                Medico temp = medicosOrdenados[i];
+                medicosOrdenados[i] = medicosOrdenados[j];
+                medicosOrdenados[j] = temp;
+            }
+        }
+    }
+
     for (int i = 0; i < numMedicos; i++) {
-        fprintf(arquivo, "Médico %s: %d horas\n", medicos[i].nome, medicos[i].horasTrabalhadas);
+        fprintf(arquivo, "Médico %s: %d horas\n", medicosOrdenados[i].nome, medicosOrdenados[i].horasTrabalhadas);
     }
 
     fclose(arquivo);
+    printf("Relatório gerado em 'relatorio.txt'.\n");
 }
 
-
-
-
+// Função principal
 int main() {
-    srand(time(NULL));  // Semente para simulação das faltas
-
     Paciente pacientes[MAX_PACIENTES];
     Medico medicos[MAX_MEDICOS];
     Sala salas[MAX_SALAS];
+    int numPacientes, numMedicos, numSalas, semanas;
 
-    int numPacientes, numSalas, numMedicos;
+    carregarDados("entrada.txt", pacientes, medicos, salas, &numPacientes, &numMedicos, &numSalas);
+    processarAgendamentos(pacientes, medicos, salas, numPacientes, numMedicos, numSalas, &semanas);
+    gerarRelatorio(pacientes, medicos, salas, numPacientes, numMedicos, numSalas, semanas);
 
-    carregarDados("C:\\Users\\Hugo Carvalho\\Documents\\so cadeira\\output\\entrada.txt", pacientes, medicos, salas, &numPacientes, &numSalas, &numMedicos);
-    processarAgendamentos(pacientes, medicos, salas, numPacientes, numMedicos, numSalas);
-    gerarRelatorio(pacientes, medicos, salas, numPacientes, numMedicos, numSalas);
-
-    printf("Processo concluído. Relatório gerado em 'relatorio.txt'.\n");
     return 0;
 }
+
