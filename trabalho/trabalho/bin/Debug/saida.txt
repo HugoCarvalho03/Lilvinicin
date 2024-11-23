@@ -1,0 +1,11 @@
+Relatório de Consultas:
+Dia 1, Hora 8: Sala 1, Médico Dr.Silva, Paciente Joao
+Dia 1, Hora 9: Sala 1, Médico Dr.Silva, Paciente Paula
+Dia 1, Hora 10: Sala 2, Médico Dr.Souza, Paciente Maria
+Dia 1, Hora 11: Sala 3, Médico Dr.Mendes, Paciente Carlos
+Dia 1, Hora 12: Sala 2, Médico Dr.Souza, Paciente Ana
+
+Horas Trabalhadas por Médico:
+Médico 1 (Dr.Silva): 2 horas
+Médico 2 (Dr.Souza): 2 horas
+Médico 3 (Dr.Mendes): 1 horas
