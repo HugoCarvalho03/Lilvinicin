@@ -1,0 +1,29 @@
+20 5 3
+Joao 5 Cardiologia
+Maria 8 Cardiologia
+Ana 7 Pediatria
+Carlos 9 Ortopedia
+Lucia 6 Cardiologia
+Fernando 4 Pediatria
+Paulo 3 Ortopedia
+Camila 7 Cardiologia
+Juliana 6 Ortopedia
+Rafael 5 Pediatria
+Larissa 2 Cardiologia
+Gabriel 8 Ortopedia
+Daniela 1 Cardiologia
+Bruno 4 Pediatria
+Helena 7 Ortopedia
+Renato 3 Cardiologia
+Sophia 9 Pediatria
+Lucas 6 Cardiologia
+Amanda 8 Pediatria
+Thiago 5 Ortopedia
+Dr. Silva Cardiologia
+Dr. Oliveira Pediatria
+Dr. Santos Ortopedia
+Dr. Costa Cardiologia
+Dr. Almeida Pediatria
+Cardiologia
+Pediatria
+Ortopedia
