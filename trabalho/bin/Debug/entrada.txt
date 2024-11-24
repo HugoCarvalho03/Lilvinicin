@@ -1,0 +1,8 @@
+3 2 1
+Joao 2 Cardiologia
+Maria 1 Pediatria
+Carlos 3 Cardiologia
+DrPaulo Cardiologia
+DrAna Pediatria
+Cardiologia
+
