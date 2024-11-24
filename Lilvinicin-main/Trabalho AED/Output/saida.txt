@@ -1,0 +1,35 @@
+
+CONSULTAS ALOCADAS:
+Paciente: João (ID: 0)
+  - Especialidade: Cardiologia
+  - Médico: Dr. Silva (ID: 0)
+  - Sala: Sala 101 (ID: 0)
+  - Dia: Segunda-feira
+  - Hora: 8h
+
+Paciente: Maria (ID: 1)
+  - Especialidade: Dermatologia
+  - Médico: Dra. Clara (ID: 1)
+  - Sala: Sala 102 (ID: 1)
+  - Dia: Segunda-feira
+  - Hora: 8h
+
+Paciente: Lucas (ID: 3)
+  - Especialidade: Cardiologia
+  - Médico: Dr. Silva (ID: 0)
+  - Sala: Sala 101 (ID: 0)
+  - Dia: Segunda-feira
+  - Hora: 9h
+
+
+PACIENTES NÃO ALOCADOS:
+ERRO: Paciente 2 (Beatriz) não pôde ser alocado.
+  - Motivo: Nenhum médico ou sala disponível para a especialidade Pediatria.
+
+HORAS TRABALHADAS POR CADA MÉDICO:
+Médico: Dr. Silva (ID: 0)
+  - Horas trabalhadas: 2
+
+Médico: Dra. Clara (ID: 1)
+  - Horas trabalhadas: 1
+
