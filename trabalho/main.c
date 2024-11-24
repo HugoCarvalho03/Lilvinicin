@@ -7,7 +7,7 @@
 #define MAX_PACIENTES 1000 // Número máximo de pacientes
 #define MAX_MEDICOS 100    // Número máximo de médicos
 #define MAX_SALAS 50       // Número máximo de salas
-#define HORAS_POR_DIA 10   // Quantidade de horas de funcionamento por dia
+#define HORAS_POR_DIA 8   // Quantidade de horas de funcionamento por dia
 #define DIAS_POR_SEMANA 5  // Dias de funcionamento por semana
 
 // Estrutura para armazenar os dados de um paciente
@@ -16,8 +16,8 @@ typedef struct {
     char nome[50];         // Nome do paciente
     int prioridade;        // Prioridade de atendimento
     char especialidade[30];// Especialidade necessária
-    int retorno;           // Indicador de retorno (não usado aqui)
-    int faltas;            // Quantidade de faltas do paciente (não usado aqui)
+    int retorno;           // Indicador de retorno 1 ,para consulta nos últimos 7 dias, 2 para consulta nos últimos 14 dias, 3 para consulta nos últimos 21 dias;
+    int faltas;            // Quantidade de faltas do paciente
 } Paciente;
 
 // Estrutura para armazenar os dados de um médico
@@ -65,8 +65,7 @@ void lerEntrada(const char *arquivoEntrada) {
     // Lê os dados de cada paciente
     for (int i = 0; i < totalPacientes; i++) {
         pacientes[i].id = i + 1; // Define o ID do paciente
-        fscanf(file, "%s %d %s", pacientes[i].nome, &pacientes[i].prioridade, pacientes[i].especialidade); // Lê os dados do paciente
-        pacientes[i].retorno = 0; // Inicializa o campo retorno
+        fscanf(file, "%s %d %s %d", pacientes[i].nome, &pacientes[i].prioridade, pacientes[i].especialidade, &pacientes[i].retorno);
         pacientes[i].faltas = 0;  // Inicializa o campo faltas
     }
 
@@ -91,9 +90,18 @@ void lerEntrada(const char *arquivoEntrada) {
 int compararPacientes(const void *a, const void *b) {
     Paciente *p1 = (Paciente *)a;
     Paciente *p2 = (Paciente *)b;
-    return p2->prioridade - p1->prioridade; // Compara as prioridades
-}
 
+    // Diferença entre os valores de retorno
+    int diferencaRetorno = abs(p1->retorno - p2->retorno);
+
+    // Se a diferença de retorno for maior que 1, prioriza pelo retorno
+    if (diferencaRetorno > 1) {
+        return p2->retorno - p1->retorno; // Ordem decrescente de retorno
+    }
+
+    // Caso contrário, prioriza pela prioridade
+    return p2->prioridade - p1->prioridade; // Ordem decrescente de prioridade
+}
 // Função para alocar consultas
 void alocarConsultas() {
     int dia = 0, hora = 0; // Variáveis para controlar o horário e o dia

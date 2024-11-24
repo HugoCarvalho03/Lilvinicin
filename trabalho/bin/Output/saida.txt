@@ -1,0 +1,8 @@
+Relatório de Consultas:
+Dia 1, Hora 8: Sala 1, Médico DrPaulo, Paciente Maria
+Dia 1, Hora 9: Sala 1, Médico DrPaulo, Paciente Carlos
+Dia 1, Hora 10: Sala 2, Médico DrAna, Paciente Joao
+
+Horas Trabalhadas por Médico:
+Médico 1 (DrPaulo): 2 horas
+Médico 2 (DrAna): 1 horas
