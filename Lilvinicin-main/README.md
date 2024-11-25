@@ -1,2 +1,0 @@
-# Lilvinicin
-Trabalho de aed
