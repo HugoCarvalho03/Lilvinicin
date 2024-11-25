@@ -1,0 +1,28 @@
+Consulta 1: Paciente: Francio (ID 1), Médico: Dr_Vinicin (ID 1), Sala: Sala_A (ID 1), Horário: Dia 1, 08h, Tipo: Primeira Consulta
+
+Consulta 2: Paciente: Zé_do_Caixão (ID 2), Médico: Dr_Vinicin (ID 1), Sala: Sala_A (ID 1), Horário: Dia 1, 09h, Tipo: Primeira Consulta
+
+Consulta 3: Paciente: Russin (ID 7), Médico: Dr_Vinicin (ID 1), Sala: Sala_A (ID 1), Horário: Dia 1, 10h, Tipo: Primeira Consulta
+
+Consulta 4: Paciente: Cicin (ID 9), Médico: Dr_Vinicin (ID 1), Sala: Sala_A (ID 1), Horário: Dia 1, 11h, Tipo: Primeira Consulta
+
+Consulta 5: Paciente: Bahias (ID 10), Médico: Dr_Vinicin (ID 1), Sala: Sala_A (ID 1), Horário: Dia 1, 12h, Tipo: Primeira Consulta
+
+Consulta 6: Paciente: Russin (ID 7), Médico: Dr_Vinicin (ID 1), Sala: Sala_A (ID 1), Horário: Dia 7, 10h, Tipo: Retorno
+
+Consulta 7: Paciente: Zé_do_Caixão (ID 2), Médico: Dr_Vinicin (ID 1), Sala: Sala_A (ID 1), Horário: Dia 8, 09h, Tipo: Retorno
+
+Consulta 8: Paciente: Francio (ID 1), Médico: Dr_Vinicin (ID 1), Sala: Sala_A (ID 1), Horário: Dia 17, 08h, Tipo: Retorno
+
+Consulta 9: Paciente: Bahias (ID 10), Médico: Dr_Vinicin (ID 1), Sala: Sala_A (ID 1), Horário: Dia 19, 12h, Tipo: Retorno
+
+Consulta 10: Paciente: Cicin (ID 9), Médico: Dr_Vinicin (ID 1), Sala: Sala_A (ID 1), Horário: Dia 28, 11h, Tipo: Retorno
+
+Horas trabalhadas:
+- Médico Dr_Vinicin (ID 1): 10 
+Faltas 
+Paciente Clebilso 
+Paciente Andre_Pinga não alocado por não ter especialidade. 
+Paciente PV não alocado por não ter especialidade. 
+Paciente Paulão não alocado por não ter especialidade. 
+Paciente Paçoca não alocado por não ter especialidade. 
